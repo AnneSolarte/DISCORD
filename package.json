@@ -1,0 +1,23 @@
+{
+  "name": "discord",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc --watch",
+    "serve": "serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnneSolarte/DISCORD.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnneSolarte/DISCORD/issues"
+  },
+  "homepage": "https://github.com/AnneSolarte/DISCORD#readme",
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}
