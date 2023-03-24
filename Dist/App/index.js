@@ -4,12 +4,15 @@ import { ServerAtt } from "./Components/Servers/Servers.js";
 import DataFriends from "./Components/Friends/DataFriendsN.js";
 import { FriendsAtt } from "./Components/Friends/Friends.js";
 import { FriendsOnAtt } from "./Components/FriendsOnline/FriendsOnline.js";
+import DataUser from "./Components/User/DataUser.js";
+import { UserAtt } from "./Components/User/user.js";
 class AppContainer extends HTMLElement {
     constructor() {
         super();
         this.ServersList = [];
         this.FriendsList = [];
         this.FriendsOnList = [];
+        this.UserList = [];
         this.attachShadow({ mode: "open" });
         DataServers.forEach((data) => {
             const ServersCard = this.ownerDocument.createElement("my-servers");
@@ -32,12 +35,19 @@ class AppContainer extends HTMLElement {
             FriendsOnCard.setAttribute(FriendsOnAtt.name, data.name);
             this.FriendsOnList.push(FriendsOnCard);
         });
+        DataUser.forEach((data) => {
+            const UserCard = this.ownerDocument.createElement("my-user");
+            UserCard.setAttribute(UserAtt.img, data.img);
+            UserCard.setAttribute(UserAtt.name, data.name);
+            UserCard.setAttribute(UserAtt.uid, data.uid);
+            this.UserList.push(UserCard);
+        });
     }
     connectedCallback() {
         this.render();
     }
     render() {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         if (this.shadowRoot) {
             this.shadowRoot.innerHTML += `
             <link rel="stylesheet" href="./App/index.css">
@@ -111,22 +121,12 @@ class AppContainer extends HTMLElement {
 
             `;
         }
-        if (this.shadowRoot) {
-            this.shadowRoot.innerHTML += `
-            <section class="Section4">
-                <div class="sectionUser">
-                    <img id="userImg" src="/src/img/user.png">
-                    <div class="sectionUserData">
-                        <p class="userText">Anne Sunart</p>
-                        <p class="userText">#3357</p>
-                    </div>
-                    <img id="configImg" src="/src/img/config.png">
-                </div>
-
-            </section>
-
-            `;
-        }
+        const UserCards = this.ownerDocument.createElement("div");
+        UserCards.className = 'Section4';
+        this.UserList.forEach((UserCard) => {
+            UserCards.appendChild(UserCard);
+        });
+        (_d = this.shadowRoot) === null || _d === void 0 ? void 0 : _d.appendChild(UserCards);
     }
 }
 customElements.define("app-container", AppContainer);

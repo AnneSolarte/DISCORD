@@ -8,6 +8,9 @@ import Friends, { FriendsAtt } from "./Components/Friends/Friends.js";
 
 import FriendsOnline, { FriendsOnAtt } from "./Components/FriendsOnline/FriendsOnline.js";
 
+import DataUser from "./Components/User/DataUser.js";
+import User, { UserAtt } from "./Components/User/user.js";
+
 
 
 
@@ -15,6 +18,7 @@ class AppContainer extends HTMLElement {
     ServersList: Servers[] = [];
     FriendsList: Friends[] = [];
     FriendsOnList: FriendsOnline[] = [];
+    UserList: User[] = [];
 
 
 
@@ -45,6 +49,14 @@ class AppContainer extends HTMLElement {
                 FriendsOnCard.setAttribute(FriendsOnAtt.img, data.img);
                 FriendsOnCard.setAttribute(FriendsOnAtt.name, data.name);
                 this.FriendsOnList.push(FriendsOnCard);
+        });
+
+        DataUser.forEach((data) => {
+            const UserCard = this.ownerDocument.createElement("my-user") as User;
+                UserCard.setAttribute(UserAtt.img, data.img);
+                UserCard.setAttribute(UserAtt.name, data.name);
+                UserCard.setAttribute(UserAtt.uid, data.uid);
+                this.UserList.push(UserCard);
         });
 
     }
@@ -135,22 +147,13 @@ class AppContainer extends HTMLElement {
             `;
         }
 
-        if (this.shadowRoot) {
-            this.shadowRoot.innerHTML += `
-            <section class="Section4">
-                <div class="sectionUser">
-                    <img id="userImg" src="/src/img/user.png">
-                    <div class="sectionUserData">
-                        <p class="userText">Anne Sunart</p>
-                        <p class="userText">#3357</p>
-                    </div>
-                    <img id="configImg" src="/src/img/config.png">
-                </div>
 
-            </section>
-
-            `;
-        }
+        const UserCards = this.ownerDocument.createElement("div")
+        UserCards.className = 'Section4'
+        this.UserList.forEach((UserCard) => {
+            UserCards.appendChild(UserCard)
+        });
+        this.shadowRoot?.appendChild(UserCards);
 
     }
 
